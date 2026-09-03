@@ -22,3 +22,9 @@ Raleigh, NC Fiduciary
 A21 State Stone
 
 Durham, NC Mayor 2028
+
+MEARVK LLC
+
+Max Rupplin - 2026
+
+MEARVK LLC is a software company tied to developer Maximilian (Max) Rupplin, who has listed roles as a software developer for the entity. Public repository data details MEARVK LLC as an entity dealing with custom software tools, such as self-contained Java programs used for media processing and file sorting.If you are looking up this specific company on the North Carolina Secretary of State (NC SOS) database:How to Look Up MEARVK LLC on the NC SOS PortalAccess the Portal: Navigate directly to the official North Carolina Business Registration Search page.Configure Search Fields:Set the "Search For" dropdown menu to Company.Set the "Words" dropdown menu to Exact Match or All.Submit the Name: Type MEARVK or MEARVK LLC into the "Organization Name" text field and click Search.View Details: If registered, click the plus sign ( + ) next to the name in the results table to expand and view its official SOSID, current registration status, registered agent, and public filing history.
