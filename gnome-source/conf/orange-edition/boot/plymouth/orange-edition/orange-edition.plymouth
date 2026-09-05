@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Ubuntu Orange Edition
+Description=Orange Edition boot splash — orange field, centered mark, near-white progress
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/orange-edition
+ScriptFile=/usr/share/plymouth/themes/orange-edition/orange-edition.script

@@ -1,0 +1,58 @@
+/* Ubuntu Orange Edition — precision desktop theme
+ *
+ * Visual rule: orange surfaces, near-white typography, deeper-orange depth,
+ * and dark high-contrast accents for text-on-light insets and focus.
+ * Shadow direction is coordinated with lighting.conf.
+ */
+
+:root {
+  --oe-surface: #e95420;
+  --oe-surface-raised: #ec6b3e;
+  --oe-surface-soft: #f08a63;
+  --oe-inset: #fff3ee;
+  --oe-text: #ffffff;
+  --oe-text-strong: #2b0f06;
+  --oe-text-muted: #ffd9c9;
+  --oe-edge: #c7431a;
+  --oe-shadow: rgba(70, 24, 8, 0.30);
+  --oe-shadow-soft: rgba(70, 24, 8, 0.16);
+  --oe-accent: #a8371a;
+  --oe-deep: #7a2810;
+}
+
+/* These variables are consumed by Orange Edition theme/extension layers.
+ * GNOME Shell's supported CSS selectors remain responsible for actual UI. */
+
+#panel {
+  background-color: var(--oe-surface);
+  color: var(--oe-text);
+  box-shadow: 0 -1px 0 var(--oe-edge), 0 -5px 16px var(--oe-shadow-soft);
+}
+
+.oe-raised {
+  background-color: var(--oe-surface-raised);
+  border: 1px solid var(--oe-edge);
+  box-shadow: 0 2px 5px var(--oe-shadow-soft),
+              0 9px 22px var(--oe-shadow-soft);
+}
+
+.oe-focus {
+  box-shadow: 0 2px 6px var(--oe-shadow-soft),
+              0 0 0 1px var(--oe-accent);
+}
+
+.oe-contact-shadow {
+  box-shadow: 0 3px 5px var(--oe-shadow-soft);
+}
+
+.oe-accent {
+  color: var(--oe-accent);
+}
+
+/* Light inset surface (menus/fields) where dark text is required for legibility
+ * against a non-orange background. */
+.oe-inset {
+  background-color: var(--oe-inset);
+  color: var(--oe-text-strong);
+  border: 1px solid var(--oe-edge);
+}

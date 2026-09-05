@@ -1,0 +1,17 @@
+# Ubuntu Orange Edition GNOME distribution defaults.
+# These are human-readable dconf keyfiles. The ISO build runs `dconf update`.
+
+[org/gnome/desktop/interface]
+# Prefer a dark desktop appearance so shell/GTK chrome reads against the orange surface.
+color-scheme='prefer-dark'
+# Orange Edition's installed icon package should provide this theme name.
+icon-theme='Ubuntu-Orange'
+
+[org/gnome/desktop/background]
+# The final ISO build may replace this with the packaged Orange Edition wallpaper.
+# Keep the background setting itself conservative until the wallpaper package exists.
+picture-options='zoom'
+
+[org/gnome/shell]
+# Favorites are intentionally not locked. The ISO may replace this list when
+# the final application set is known.

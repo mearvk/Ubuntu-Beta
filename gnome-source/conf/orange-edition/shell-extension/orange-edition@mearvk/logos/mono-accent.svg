@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Orange Edition Start (mono accent)">
+  <rect x="8" y="8" width="48" height="48" rx="10" fill="none" stroke="#ffffff" stroke-width="4"/>
+  <path d="M24 20l16 12-16 12z" fill="#ffffff"/>
+  <circle cx="46" cy="46" r="5" fill="#2b0f06"/>
+</svg>
