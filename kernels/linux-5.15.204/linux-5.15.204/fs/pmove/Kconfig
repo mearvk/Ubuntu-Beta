@@ -1,0 +1,34 @@
+# SPDX-License-Identifier: GPL-2.0
+
+config PMOVE
+	tristate "Parallel Move — Dynamic Lane & Channel Assignment"
+	depends on BLOCK && BLK_DEV
+	select PROC_FS
+	help
+	  PMOVE provides a dedicated parallel move engine with independent
+	  telemetry, abort capability, and move-specific optimizations.
+
+	  Move strategy:
+	    1. Attempt atomic do_renameat2() — O(1) inode swap (same-fs)
+	    2. If -EXDEV: splice-based data migration + unlink (cross-device)
+	    3. PMOVE_F_FORCE_COPY: always use splice path (benchmarking)
+
+	  Dynamic assignment mirrors pcopy's engine:
+	    - CPU load awareness (scales channels with available headroom)
+	    - Device class speed constants shared with pcopy module
+	    - PCIe lane utilization tracking
+	    - File count proportional scaling
+
+	  Reports move-specific metrics:
+	    - Atomic renames (instant, zero data copy)
+	    - Splice fallbacks (cross-device boundary detected)
+	    - Bytes actually transferred (excludes instant renames)
+
+	  Exposes:
+	    /proc/pmove/status  - Hardware detection and dynamic state
+	    /proc/pmove/config  - Tunable parameters
+	    /dev/pmove          - ioctl interface for pmove tool
+
+	  To compile as a module, choose M here: the module will be called pmove.
+
+	  If unsure, say M.
