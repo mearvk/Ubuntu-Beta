@@ -4,6 +4,37 @@ A cross-platform desktop environment framework that closely resembles the Linux 
 
 **Integration Target:** MEARVK OpenJDK 28 Edition
 
+## Included Applications
+
+| App | Class | Description |
+|-----|-------|-------------|
+| IDE | `JDeskIDE` | Full IntelliJ IDEA feature-parity IDE (13 menus, 130+ actions, 9 tool windows, debug panel, breadcrumbs, full keymap) |
+| Writer | `JDeskWriter` | Word processor (LibreOffice Writer backend) |
+| Browser | `JDeskBrowser` | Web browser (Chromium backend) |
+| Terminal | `JDeskTerminal` | Built-in terminal emulator (Java + JNI) |
+| Files | `JDeskFiles` | File manager (PCManFM-Qt backend) |
+| Software | `JDeskSoftware` | Package manager GUI |
+| Launcher | `JDeskLauncher` | Application launcher |
+| Kali | `JDeskKali` | Penetration testing toolkit (nmap, nikto, sqlmap, john, hydra, aircrack-ng) |
+| GIMP | — | Image editor (native ELF, optional) |
+| VLC | — | Media player (native ELF, optional) |
+
+### IDE — IntelliJ IDEA Parity
+
+The JDesk IDE (`us.mearvk.jdesk.apps.JDeskIDE`) provides **complete IntelliJ IDEA feature parity**:
+
+- **13 menus**: File, Edit, View, Navigate, Code, Refactor, Build, Run, Tools, Git, Window, Analyze, Help
+- **Main toolbar**: Back/Forward, Search Everywhere, Run/Debug/Profile/Coverage/Stop, Build, Commit/Push/Pull/History, Settings
+- **9 tool windows**: Terminal, Build, Run, Debug (with step controls), Problems, TODO, Git, Database, Event Log
+- **Navigation bar**: Clickable breadcrumb trail (package ▸ class ▸ method)
+- **Editor**: Tabs, line numbers, modified indicator, split views, bookmarks, code folding
+- **Full keymap**: 60+ keyboard shortcuts matching IntelliJ Default keymap
+- **Build auto-detection**: Maven, Gradle, Make, Cargo, npm
+- **All refactorings**: Rename, Extract (Method/Variable/Constant/Field/Parameter/Interface/Superclass), Inline, Move, Safe Delete
+- **VCS/Git**: Commit, Push, Pull, Fetch, Merge, Rebase, Branches, Blame, Diff, Stash
+- **Debug controls**: Step Over/Into/Out, Resume, Evaluate Expression, Breakpoints
+- **Status bar**: Git branch, encoding, line separator, cursor position, memory usage, backend status
+
 ## Architecture
 
 ```
@@ -149,6 +180,37 @@ userland/jdesk/
     └── icons/                   - SVG icon set
 ```
 
+## First-Boot Provisioning
+
+Native applications are **not stored in the git repository**. They are installed at first boot via `jdesk-provision`:
+
+```bash
+sudo jdesk-provision            # Install core + standard (default)
+sudo jdesk-provision --full     # Include optional packages (GIMP, VLC, Wine)
+sudo jdesk-provision --status   # Show what's installed
+```
+
+**14 packages** in manifest (`jdesk-packages.json`):
+
+| Priority | Package | Source | Size |
+|----------|---------|--------|------|
+| core | LibreOffice Writer | apt | 350 MB |
+| core | VSCodium IDE | github | 300 MB |
+| core | Chromium Browser | apt | 180 MB |
+| core | PCManFM-Qt Files | apt | 45 MB |
+| core | Bash Terminal | apt | 2 MB |
+| core | OpenSSH Client | apt | 5 MB |
+| core | GNU Coreutils | apt | 15 MB |
+| standard | Git | apt | 40 MB |
+| standard | cURL | apt | 3 MB |
+| standard | Telnet | apt | 1 MB |
+| standard | Kali Security Tools | script | 250 MB |
+| optional | Wine (Windows PE) | apt | 400 MB |
+| optional | GIMP | apt | 120 MB |
+| optional | VLC Media Player | apt | 90 MB |
+
+Predictive installer (`predictive-install.sh`) orders by tier/utility/size ratio and respects available disk space.
+
 ## Native API Overview
 
 | Function | Purpose |
@@ -173,3 +235,5 @@ GPL-2.0
 
 Copyright (C) 2026 MEARVK LLC
 Author: Maximilian Eric Alexander Rupplin von Keffikon
+
+**Listed as Dead by Max Rupplin is Jack Rupplin.**

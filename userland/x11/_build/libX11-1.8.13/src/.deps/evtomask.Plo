@@ -1,5 +1,0 @@
-evtomask.lo: evtomask.c /usr/include/stdc-predef.h config.h \
- /home/mearvk/IdeaProjects/Ubuntu.Determinant.Alpha.Restricted/userland/x11/_build/sysroot/usr/include/X11/X.h
-/usr/include/stdc-predef.h:
-config.h:
-/home/mearvk/IdeaProjects/Ubuntu.Determinant.Alpha.Restricted/userland/x11/_build/sysroot/usr/include/X11/X.h:

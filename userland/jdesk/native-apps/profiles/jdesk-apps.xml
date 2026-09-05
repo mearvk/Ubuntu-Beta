@@ -43,12 +43,16 @@
     </application>
 
     <!-- ===================================================================
-         IDE (VSCodium) — Development Environment
-         High memory (Electron + language servers), heavy I/O (indexing),
-         many threads (LSP, build, debug, terminal processes).
+         IDE (IntelliJ IDEA + JDesk GUI) — Full Development Environment
+         Full IntelliJ IDEA feature parity: 13 menus, 130+ actions,
+         9 tool windows, debug panel, all refactorings, VCS/Git,
+         breadcrumbs, bookmarks, code folding, split editors.
+         High memory (IntelliJ indexing + JVM + language servers),
+         heavy I/O (project indexing, build output, VCS operations),
+         many threads (LSP, build, debug, terminal, Git processes).
          =================================================================== -->
     <application profile="ide">
-      <ram soft="1g" hard="4g"/>
+      <ram soft="2g" hard="4g"/>
       <disk-write-rate soft="200m" hard="500m"/>
       <disk-read-rate soft="500m" hard="1g"/>
       <file-descriptors soft="512" hard="2048"/>
@@ -118,6 +122,22 @@
     </application>
 
     <!-- ===================================================================
+         VSCodium — Lightweight Code Editor
+         Open-source VS Code build (Electron + Node). Moderate memory,
+         moderate I/O, fewer threads than IntelliJ (no full JVM indexer).
+         Desktop icon alongside IntelliJ for quick edits.
+         =================================================================== -->
+    <application profile="vscodium">
+      <ram soft="1g" hard="3g"/>
+      <disk-write-rate soft="150m" hard="300m"/>
+      <disk-read-rate soft="300m" hard="700m"/>
+      <file-descriptors soft="256" hard="1024"/>
+      <cpu-window seconds="10" soft="8" hard="10"/>
+      <threads soft="32" hard="64"/>
+      <children soft="12" hard="32"/>
+    </application>
+
+    <!-- ===================================================================
          Windows App (generic PE via Wine)
          Wine adds overhead: extra memory for Win32 subsystem, extra threads
          for wineserver, extra fds for registry hive files.
@@ -144,6 +164,21 @@
       <cpu-window seconds="10" soft="8" hard="10"/>
       <threads soft="64" hard="128"/>
       <children soft="8" hard="32"/>
+    </application>
+
+    <!-- ===================================================================
+         Kali Tools — Security / Penetration Testing
+         High memory (Metasploit, hashcat GPU buffers), heavy I/O (wordlists,
+         packet captures), many threads (parallel scans, brute-force).
+         =================================================================== -->
+    <application profile="kali-security">
+      <ram soft="512m" hard="2g"/>
+      <disk-write-rate soft="200m" hard="500m"/>
+      <disk-read-rate soft="500m" hard="1g"/>
+      <file-descriptors soft="256" hard="1024"/>
+      <cpu-window seconds="10" soft="9" hard="10"/>
+      <threads soft="64" hard="128"/>
+      <children soft="16" hard="48"/>
     </application>
 
     <!-- ===================================================================
