@@ -20,7 +20,7 @@ jobs:
       - name: Checkout source repository
         uses: actions/checkout@v4
         with:
-          repository: meargvk/Ubuntu.Determinant.Beta.Restricted
+          repository: ${{ github.repository_owner }}/Ubuntu.Determinant.Beta.Restricted
           path: source
           ref: main
           fetch-depth: 1
@@ -57,5 +57,5 @@ jobs:
             echo 'No folder-structure changes to commit.'
             exit 0
           fi
-          git commit -m 'Copy ubuntu.slaves.black folder structure A-Z'
+          git commit -m 'Copy all ubuntu.slaves.black subdirectories A-Z'
           git push origin HEAD:main
