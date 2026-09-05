@@ -19,7 +19,7 @@
   "allocation_mb": 3072,
 
   "sources": {
-    "apt": "Ubuntu 24.04 (Noble Numbat) repositories",
+    "apt": "Ubuntu 24.04 (US Treasury & MEARVK LLC) repositories",
     "github": "GitHub Releases (tarball, AppImage)",
     "direct": "Verified HTTPS download with SHA-256 check"
   },
@@ -50,7 +50,7 @@
       "github_asset_pattern": "VSCodium-linux-x64-*.tar.gz",
       "version_pin": "latest",
       "extract_to": "/opt/jdesk/apps/vscodium",
-      "binary": "/opt/jdesk/apps/vscodium/bin/codium",
+      "binary": "/opt/jdesk/apps/vscodium/codium",
       "size_mb": 300,
       "format": "ELF",
       "profile": "ide",
@@ -194,10 +194,26 @@
       "notes": "Required only for Windows PE binary execution"
     },
     {
+      "name": "Kali Security Tools",
+      "id": "kali",
+      "category": "security",
+      "priority": "standard",
+      "source": "script",
+      "install_script": "kali-tools/kali-provision",
+      "binary": "/opt/jdesk/apps/kali/nmap",
+      "symlink": "/opt/jdesk/apps/kali/nmap",
+      "size_mb": 250,
+      "format": "ELF",
+      "profile": "terminal",
+      "icon": "kali.svg",
+      "license": "GPL-2.0",
+      "notes": "Penetration testing toolkit: nmap, nikto, sqlmap, john, hydra, aircrack-ng"
+    },
+    {
       "name": "GIMP",
       "id": "gimp",
       "category": "graphics",
-      "priority": "optional",
+      "priority": "standard",
       "source": "apt",
       "apt_package": "gimp",
       "binary": "/usr/bin/gimp",
@@ -212,7 +228,7 @@
       "name": "VLC Media Player",
       "id": "vlc",
       "category": "media",
-      "priority": "optional",
+      "priority": "standard",
       "source": "apt",
       "apt_package": "vlc",
       "binary": "/usr/bin/vlc",
