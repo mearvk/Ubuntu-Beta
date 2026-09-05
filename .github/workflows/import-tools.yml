@@ -1,0 +1,43 @@
+name: Import tools from Ubuntu.Determinant.Beta.Restricted
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import-tools:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out destination repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Import tools tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          tmp="$(mktemp -d)"
+          trap 'rm -rf "$tmp"' EXIT
+          git clone --depth 1 https://github.com/mearvk/Ubuntu.Determinant.Beta.Restricted.git "$tmp/source"
+          rm -rf tools
+          mkdir -p tools
+          cp -a "$tmp/source/tools/." tools/
+
+      - name: Commit imported tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tools
+          if git diff --cached --quiet; then
+            echo "tools already match source repository"
+            exit 0
+          fi
+          git commit -m "Import /tools from Ubuntu.Determinant.Beta.Restricted [skip ci]"
+          git push origin HEAD:main
