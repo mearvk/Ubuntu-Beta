@@ -1,15 +1,15 @@
-name: Import Greenland Archive
+name: Import ubuntu.slaves.black folder structure
 
 on:
   push:
     paths:
-      - '.greenland-import-trigger'
+      - '.ubuntu-slaves-black-import-trigger'
 
 permissions:
   contents: write
 
 jobs:
-  import-greenland:
+  import-folder-structure:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout target repository
@@ -26,24 +26,45 @@ jobs:
           ref: main
           fetch-depth: 1
 
-      - name: Copy Greenland archive
+      - name: Recreate source folder structure only
+        shell: bash
         run: |
           set -euo pipefail
-          mkdir -p target/ubuntu.slaves.black
-          rm -rf target/ubuntu.slaves.black/greenland
-          cp -a source/greenland target/ubuntu.slaves.black/greenland
+          src='source/ubuntu.slaves.black'
+          dst='target/ubuntu.slaves.black'
+          mkdir -p "$dst"
+
+          # Copy directories/subdirectories only, A-Z order.
+          find "$src" -type d -print0 | sort -z | while IFS= read -r -d '' dir; do
+            rel="${dir#"$src"/}"
+            [ "$dir" = "$src" ] && continue
+            mkdir -p "$dst/$rel"
+          done
+
+          # Git cannot track empty directories, so use an unobtrusive marker
+          # only where a source directory would otherwise disappear.
+          find "$src" -type d -print0 | sort -z | while IFS= read -r -d '' dir; do
+            rel="${dir#"$src"/}"
+            [ "$dir" = "$src" ] && continue
+            target_dir="$dst/$rel"
+            if [ -z "$(find "$target_dir" -mindepth 1 -maxdepth 1 -print -quit)" ]; then
+              printf '%s\n' 'Directory marker; source files intentionally not imported.' > "$target_dir/.gitkeep"
+            fi
+          done
+
           rm -rf source
 
-      - name: Commit imported archive
+      - name: Commit folder structure
         working-directory: target
+        shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add ubuntu.slaves.black/greenland
+          git add -A ubuntu.slaves.black
           if git diff --cached --quiet; then
-            echo 'No Greenland changes to commit.'
+            echo 'No folder-structure changes to commit.'
             exit 0
           fi
-          git commit -m 'Import Greenland archive into ubuntu.slaves.black'
+          git commit -m 'Copy ubuntu.slaves.black folder structure A-Z'
           git push origin HEAD:main
