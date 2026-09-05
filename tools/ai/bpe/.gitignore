@@ -1,0 +1,8 @@
+# Generated pipeline artifacts — not source. Regenerate with the scripts.
+out/
+__pycache__/
+*.pyc
+
+# Generated combined dictionary (derivable from data/dictionary-csv/ + data/*.txt
+# via parse_webster.py). ~32MB; regenerate on demand rather than committing.
+data/webster1913.json
