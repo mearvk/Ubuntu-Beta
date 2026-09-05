@@ -1,0 +1,49 @@
+name: Import Greenland Archive
+
+on:
+  push:
+    paths:
+      - '.greenland-import-trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  import-greenland:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          path: target
+          fetch-depth: 0
+
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+        with:
+          repository: meargvk/Ubuntu.Determinant.Beta.Restricted
+          path: source
+          ref: main
+          fetch-depth: 1
+
+      - name: Copy Greenland archive
+        run: |
+          set -euo pipefail
+          mkdir -p target/ubuntu.slaves.black
+          rm -rf target/ubuntu.slaves.black/greenland
+          cp -a source/greenland target/ubuntu.slaves.black/greenland
+          rm -rf source
+
+      - name: Commit imported archive
+        working-directory: target
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ubuntu.slaves.black/greenland
+          if git diff --cached --quiet; then
+            echo 'No Greenland changes to commit.'
+            exit 0
+          fi
+          git commit -m 'Import Greenland archive into ubuntu.slaves.black'
+          git push origin HEAD:main
