@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Ubuntu Orange
+Comment=Ubuntu Orange Edition desktop — orange-skinned GNOME session
+Exec=/usr/bin/gnome-session --session=ubuntu-orange
+TryExec=/usr/bin/gnome-session
+Type=Application
+DesktopNames=ubuntu-orange:GNOME
+X-GDM-SessionRegisters=true
+X-Ubuntu-Orange-Edition=true
